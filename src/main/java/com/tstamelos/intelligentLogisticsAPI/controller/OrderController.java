@@ -26,7 +26,7 @@ public class OrderController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseId> updateOrder(@PathVariable Long id, @RequestBody OrderParams params) {
         Long idResponse = orderService.updateOrder(id, params);
-        return ResponseEntity.ok(new ResponseId(id));
+        return ResponseEntity.ok(new ResponseId(idResponse));
     }
 
     @PostMapping("/{id}/cancel")
