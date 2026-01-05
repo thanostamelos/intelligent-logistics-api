@@ -145,13 +145,4 @@ public class OrderService {
         }
     }
 
-    private OrderStatus parseOrderStatus(String value) {
-        if (value == null || value.isBlank()) return OrderStatus.PENDING;
-        try {
-            return OrderStatus.valueOf(value.trim().toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            throw new OrderValidationException("Invalid order status: " + value);
-        }
-    }
-
 }

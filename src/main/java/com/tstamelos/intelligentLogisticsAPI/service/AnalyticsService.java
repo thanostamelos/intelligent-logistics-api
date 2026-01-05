@@ -27,24 +27,20 @@ public class AnalyticsService {
     public AnalyticsResponse getAnalytics() {
         List<Order> orders = findAllOrders();
 
-        // total revenue (reduce)
         BigDecimal totalRevenue = orders.stream()
                 .map(Order::getCost)
                 .filter(Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        // grouping by destination
         var ordersByDestination = orders.stream()
                 .filter(o -> o.getDestination() != null && !o.getDestination().trim().isEmpty())
                 .collect(Collectors.groupingBy(Order::getDestination));
 
-        // order with max cost
         var mostExpensive = orders.stream()
                 .filter(o -> o.getCost() != null)
                 .max(Comparator.comparing(Order::getCost))
                 .orElse(null);
 
-        // list with ids from DELAYED orders
         var delayedOrderIds = orders.stream()
                 .filter(o -> o.getStatus() == OrderStatus.DELAYED)
                 .map(Order::getId)

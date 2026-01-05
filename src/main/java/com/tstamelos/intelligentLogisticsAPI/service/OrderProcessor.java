@@ -33,20 +33,16 @@ public class OrderProcessor {
 
         orderOpt.ifPresentOrElse(order -> {
             try {
-                // Βήμα 1: Θέτουμε την παραγγελία σε κατάσταση επεξεργασίας
                 order.setStatus(OrderStatus.PROCESSING);
                 order.setUpdatedOn(LocalDateTime.now());
                 order.setUpdatedBy("SYSTEM");
                 orderRepository.saveAndFlush(order);
 
-                // Προσομοίωση καθυστέρησης (π.χ. υπολογισμός δρομολογίου)
                 Thread.sleep(3000);
 
-                // Βήμα 2: Υπολογισμός κόστους μέσω του PricingService
                 BigDecimal cost = pricingService.calculateCost(order);
                 order.setCost(cost);
 
-                // Βήμα 3: Ολοκλήρωση επεξεργασίας
                 order.setStatus(OrderStatus.COMPLETED);
                 order.setUpdatedOn(LocalDateTime.now());
                 order.setUpdatedBy("SYSTEM");
@@ -64,11 +60,7 @@ public class OrderProcessor {
         });
     }
 
-    /**
-     * Βοηθητική μέθοδος που προσπαθεί να βρει την παραγγελία, περιμένοντας λίγο ανάμεσα στις προσπάθειες.
-     * Αυτό δίνει χρόνο στο Transaction του Service να κάνει commit.
-     */
-    private Optional<Order> findOrderWithRetry(Long orderId, int maxRetries) {
+    private Optional<Order>  findOrderWithRetry(Long orderId, int maxRetries) {
         for (int i = 0; i < maxRetries; i++) {
             Optional<Order> order = orderRepository.findById(orderId);
             if (order.isPresent()) {

@@ -24,9 +24,7 @@ public class PricingService {
             throw new IllegalArgumentException("Shipping type cannot be null");
         }
 
-        //Όταν καλείς το strategies.get(order.getShippingType().name()),
-        // το Map σου επιστρέφει την κατάλληλη κλάση (π.χ. αν το type είναι FREE,
-        // σου φέρνει το FreeShippingStrategy) και τρέχει τη μέθοδό της.
+        // το Map σου επιστρέφει την κατάλληλη κλάση
         PricingStrategy strategy = strategies.get(order.getShippingType().name());
 
         if (strategy == null) {
