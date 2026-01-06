@@ -40,7 +40,6 @@ public class OrderService {
         validateOrder(newOrder);
         Order savedOrder = orderRepository.saveAndFlush(newOrder);
 
-        // Το Propagation.REQUIRES_NEW στον Processor θα τον κρατήσει απομονωμένο.
         orderProcessor.processOrder(savedOrder.getId());
 
         return savedOrder.getId();
