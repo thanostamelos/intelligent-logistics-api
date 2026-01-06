@@ -30,9 +30,9 @@ public class VehicleController {
 
     @PostMapping("/init")
     public ResponseEntity<String> initFleet() {
-        vehicleService.createVehicle(new VehicleParams("TRUCK", "ABC-123", "Blue", null, null, 0L));
-        vehicleService.createVehicle(new VehicleParams("VAN", "XYZ-789", "White", null, null, 0L));
-        vehicleService.createVehicle(new VehicleParams("DRONE", "DRN-001", "Black", null, null, 0L));
+        vehicleService.createVehicle(new VehicleParams("TRUCK", "AED-124", "Blue", null, null, 0L));
+        vehicleService.createVehicle(new VehicleParams("VAN", "XYE-783", "White", null, null, 0L));
+        vehicleService.createVehicle(new VehicleParams("DRONE", "RRN-201", "Black", null, null, 0L));
         return ResponseEntity.ok("Fleet initialized using Factory Method Pattern");
     }
 }

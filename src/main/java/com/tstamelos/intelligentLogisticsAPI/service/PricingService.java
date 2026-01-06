@@ -12,9 +12,6 @@ public class PricingService {
 
     private final Map<String, PricingStrategy> strategies;
 
-    //Το Spring αυτόματα ψάχνει όλες τις κλάσεις που κάνουν implements PricingStrategy
-    // και τις βάζει σε ένα Map. Το κλειδί (String) είναι το όνομα που δώσαμε στο
-    // @Component και η τιμή είναι το instance της κλάσης.
     public PricingService(Map<String, PricingStrategy> strategies) {
         this.strategies = strategies;
     }
@@ -24,7 +21,6 @@ public class PricingService {
             throw new IllegalArgumentException("Shipping type cannot be null");
         }
 
-        // το Map σου επιστρέφει την κατάλληλη κλάση
         PricingStrategy strategy = strategies.get(order.getShippingType().name());
 
         if (strategy == null) {

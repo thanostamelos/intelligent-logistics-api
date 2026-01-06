@@ -28,6 +28,10 @@ public class VehicleService {
 
     @Transactional
     public Long createVehicle(VehicleParams params) {
+        if (vehicleRepository.existsByLicensePlate(params.licensePlate())) {
+            throw new VehicleValidationException("Vehicle with license plate " + params.licensePlate() + " already exists.");
+        }
+
         VehicleType type = parseVehicleType(params.vehicleType());
 
         Vehicle newVehicle = vehicleFactory.createVehicle(type, params.licensePlate());
